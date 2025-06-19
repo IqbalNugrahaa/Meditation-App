@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:metidation_app/core/constants/app_button.dart';
+import 'package:metidation_app/core/components/app_button.dart';
 import 'package:metidation_app/core/constants/app_colors.dart';
 import 'package:metidation_app/core/constants/app_strings.dart';
 import 'package:metidation_app/core/constants/icon_assets.dart';
 import 'package:metidation_app/core/constants/image_assets.dart';
 import 'package:metidation_app/core/utils/media_query_util.dart';
-import 'package:metidation_app/core/widgets/app_text.dart';
+import 'package:metidation_app/core/components/app_text.dart';
+import 'package:metidation_app/viewmodels/auth/auth_view_model.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = AuthViewModel();
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -85,7 +88,9 @@ class AuthPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: AppButton.contained(
                   text: AppStrings.signUp,
-                  onPressed: () {},
+                  onPressed: () {
+                    viewModel.navigateToSignUp(context);
+                  },
                   backgroundColor: AppColors.buttonColorPurple,
                   width: ScreenSize.width(context),
                   height: 63,

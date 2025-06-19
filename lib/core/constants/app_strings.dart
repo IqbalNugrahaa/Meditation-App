@@ -1,10 +1,15 @@
 class AppStrings {
   static const String appName = 'Meditation App';
 
-  // LOGIN
+  // AUTH
   static const String headingLogin = "We are what we do";
   static const String titleLogin =
       "Thousand of people are usign silent moon for smalls meditation";
+
+  // SIGN UP
+  static const String buttonFacebook = "CONTINUE WITH FACEBOOK";
+  static const String buttonGoogle = "CONTINUE WITH GOOGLE";
+  static const String loginEmail = "OR LOG IN WITH EMAIL";
 
   // Action
   static const String signUp = "Sign Up";

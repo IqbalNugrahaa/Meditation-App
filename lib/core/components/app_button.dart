@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:metidation_app/core/utils/media_query_util.dart';
 
 class AppButton extends StatelessWidget {
   final String text;
@@ -12,6 +13,7 @@ class AppButton extends StatelessWidget {
   final double fontSize;
   final bool isOutlined;
   final Color borderColor;
+  final Widget? leading;
 
   const AppButton._({
     required this.text,
@@ -25,6 +27,7 @@ class AppButton extends StatelessWidget {
     this.fontWeight = FontWeight.w600,
     this.fontSize = 16,
     required this.isOutlined,
+    this.leading,
   });
 
   /// Contained button (solid)
@@ -38,6 +41,7 @@ class AppButton extends StatelessWidget {
     double borderRadius = 12,
     FontWeight fontWeight = FontWeight.w600,
     double fontSize = 16,
+    Widget? leading,
   }) {
     return AppButton._(
       text: text,
@@ -51,6 +55,7 @@ class AppButton extends StatelessWidget {
       fontWeight: fontWeight,
       fontSize: fontSize,
       isOutlined: false,
+      leading: leading,
     );
   }
 
@@ -65,6 +70,7 @@ class AppButton extends StatelessWidget {
     double borderRadius = 12,
     FontWeight fontWeight = FontWeight.w600,
     double fontSize = 16,
+    Widget? leading,
   }) {
     return AppButton._(
       text: text,
@@ -78,11 +84,37 @@ class AppButton extends StatelessWidget {
       fontWeight: fontWeight,
       fontSize: fontSize,
       isOutlined: true,
+      leading: leading,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final child = Stack(
+      alignment: Alignment.center,
+      children: [
+        // Text tetap selalu rata tengah
+        SizedBox(
+          width: ScreenSize.width(context),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontWeight: fontWeight,
+              fontSize: fontSize,
+              color: textColor,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        // Leading selalu di kiri (gunakan padding biar nggak mentok)
+        if (leading != null)
+          Positioned(
+            left: 34.84,
+            child: leading!,
+          ),
+      ],
+    );
+
     return SizedBox(
       width: width,
       height: height,
@@ -91,35 +123,23 @@ class AppButton extends StatelessWidget {
               onPressed: onPressed,
               style: OutlinedButton.styleFrom(
                 side: BorderSide(color: borderColor),
-                foregroundColor: textColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
+                padding: EdgeInsets.zero,
               ),
-              child: Text(
-                text,
-                style: TextStyle(
-                  fontWeight: fontWeight,
-                  fontSize: fontSize,
-                ),
-              ),
+              child: child,
             )
           : ElevatedButton(
               onPressed: onPressed,
               style: ElevatedButton.styleFrom(
                 backgroundColor: backgroundColor,
-                foregroundColor: textColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
+                padding: EdgeInsets.zero,
               ),
-              child: Text(
-                text,
-                style: TextStyle(
-                  fontWeight: fontWeight,
-                  fontSize: fontSize,
-                ),
-              ),
+              child: child,
             ),
     );
   }
