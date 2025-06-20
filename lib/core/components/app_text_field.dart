@@ -2,116 +2,120 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class AppTextField extends HookWidget {
-  final String label;
+  final String hint;
   final bool isPassword;
   final TextEditingController controller;
   final Widget Function(VoidCallback clearText)? trailingBuilder;
   final String? Function(String?)? validator;
   final double borderRadius;
-  final double textSize;
-  final FontWeight fontWeight;
-  final Color textColor;
-  final Color hintColor;
-  final Color fillColor;
+  final AutovalidateMode? autovalidateMode;
+  final TextInputType textInputType;
+  final Color? fillColor;
+  final TextStyle? textStyle;
+  final TextStyle? hintStyle;
+  final String? errorText; // ✅ Ditambahkan ke InputDecoration
+  final TextStyle? errorStyle;
 
   const AppTextField._({
-    required this.label,
+    required this.hint,
     required this.isPassword,
     required this.controller,
     this.trailingBuilder,
     this.validator,
-    this.borderRadius = 15,
-    this.textSize = 14,
-    this.fontWeight = FontWeight.w400,
-    this.textColor = Colors.black,
-    this.hintColor = Colors.grey,
-    this.fillColor = const Color(0xFFF5F6FA),
+    this.borderRadius = 12,
+    this.autovalidateMode,
+    this.textInputType = TextInputType.text,
+    this.fillColor,
+    this.textStyle,
+    this.hintStyle,
+    this.errorText,
+    this.errorStyle,
   });
 
-  /// Factory untuk TextField biasa
   factory AppTextField({
-    required String label,
+    required String hint,
     required TextEditingController controller,
     Widget Function(VoidCallback clearText)? trailingBuilder,
     String? Function(String?)? validator,
-    double borderRadius = 15,
-    double textSize = 14,
-    FontWeight fontWeight = FontWeight.w400,
-    Color textColor = Colors.black,
-    Color hintColor = Colors.grey,
-    Color fillColor = const Color(0xFFF5F6FA),
+    double borderRadius = 12,
+    AutovalidateMode? autovalidateMode,
+    TextInputType textInputType = TextInputType.text,
+    Color? fillColor,
+    TextStyle? textStyle,
+    TextStyle? hintStyle,
+    String? errorText,
+    TextStyle? errorStyle,
   }) {
     return AppTextField._(
-      label: label,
+      hint: hint,
       isPassword: false,
       controller: controller,
       trailingBuilder: trailingBuilder,
       validator: validator,
       borderRadius: borderRadius,
-      textSize: textSize,
-      fontWeight: fontWeight,
-      textColor: textColor,
-      hintColor: hintColor,
+      autovalidateMode: autovalidateMode,
+      textInputType: textInputType,
       fillColor: fillColor,
+      textStyle: textStyle,
+      hintStyle: hintStyle,
+      errorText: errorText,
+      errorStyle: errorStyle,
     );
   }
 
-  /// Factory untuk TextField password
   factory AppTextField.password({
-    required String label,
+    required String hint,
     required TextEditingController controller,
     String? Function(String?)? validator,
-    double borderRadius = 15,
-    double textSize = 14,
-    FontWeight fontWeight = FontWeight.w400,
-    Color textColor = Colors.black,
-    Color hintColor = Colors.grey,
-    Color fillColor = const Color(0xFFF5F6FA),
+    double borderRadius = 12,
+    AutovalidateMode? autovalidateMode,
+    Color? fillColor,
+    TextStyle? textStyle,
+    TextStyle? hintStyle,
+    String? errorText,
+    TextStyle? errorStyle,
   }) {
     return AppTextField._(
-      label: label,
+      hint: hint,
       isPassword: true,
       controller: controller,
       validator: validator,
       borderRadius: borderRadius,
-      textSize: textSize,
-      fontWeight: fontWeight,
-      textColor: textColor,
-      hintColor: hintColor,
+      autovalidateMode: autovalidateMode,
       fillColor: fillColor,
+      textStyle: textStyle,
+      hintStyle: hintStyle,
+      errorText: errorText,
+      errorStyle: errorStyle,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final obscureText = useState(isPassword);
-
     void clearText() => controller.clear();
 
     return TextFormField(
       controller: controller,
       obscureText: obscureText.value,
+      keyboardType: textInputType,
       validator: validator,
-      style: TextStyle(
-        fontSize: textSize,
-        fontWeight: fontWeight,
-        color: textColor,
-      ),
+      autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
+      style: textStyle,
       decoration: InputDecoration(
-        hintText: label,
-        hintStyle: TextStyle(
-          color: hintColor,
-          fontSize: textSize,
-          fontWeight: fontWeight,
-        ),
+        hintText: hint,
+        hintStyle: hintStyle,
         filled: true,
-        fillColor: fillColor,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        fillColor: fillColor ?? Colors.grey.shade200,
+        errorText: errorText, // ✅ errorText tampil disini otomatis
+        errorStyle:
+            errorStyle ?? const TextStyle(color: Colors.red, fontSize: 9),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius),
           borderSide: BorderSide.none,
         ),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         suffixIcon: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -121,7 +125,6 @@ class AppTextField extends HookWidget {
               IconButton(
                 icon: Icon(
                   obscureText.value ? Icons.visibility_off : Icons.visibility,
-                  color: hintColor,
                 ),
                 onPressed: () => obscureText.value = !obscureText.value,
               ),
