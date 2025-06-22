@@ -1,0 +1,101 @@
+import 'package:metidation_app/services/auth/auth_services.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../core/helpers/session_manager.dart';
+import '../../model/request/auth/login_request.dart';
+
+part 'login_view_model.g.dart';
+
+@riverpod
+class LoginViewModel extends _$LoginViewModel {
+  @override
+  LoginState build() {
+    return LoginState();
+  }
+
+  Future<void> login({
+    required String email,
+    required String password,
+  }) async {
+    // Reset dulu error sebelum loading
+    state = state.copyWith(
+      isLoading: true,
+      errorTextField: null,
+      errorMessage: null,
+      isSuccess: false,
+      notificationId: state.notificationId + 1,
+    );
+
+    try {
+      final auth = ref.read(authServiceProvider);
+      final result = await auth.login(
+        LoginRequestModel(
+          email: email,
+          password: password,
+        ),
+      );
+
+      if (result.token != null) {
+        await SessionManager.saveSession(
+          token: result.token!,
+          email: email,
+        );
+        state = state.copyWith(
+          isLoading: false,
+          isSuccess: true,
+          successMessage: result.token,
+          notificationId: state.notificationId + 1,
+        );
+      } else {
+        state = state.copyWith(
+          isLoading: false,
+          errorMessage: result.error,
+          notificationId: state.notificationId + 1,
+        );
+      }
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorTextField: null,
+        errorMessage: e.toString(),
+        notificationId: state.notificationId + 1,
+      );
+    }
+  }
+}
+
+class LoginState {
+  final bool isLoading;
+  final bool isSuccess;
+  final int notificationId;
+  final String? successMessage;
+  final String? errorMessage;
+  final String? errorTextField;
+
+  LoginState({
+    this.isLoading = false,
+    this.isSuccess = false,
+    this.notificationId = 0,
+    this.successMessage,
+    this.errorMessage,
+    this.errorTextField,
+  });
+
+  LoginState copyWith({
+    bool? isLoading,
+    bool? isSuccess,
+    int? notificationId,
+    String? successMessage,
+    String? errorMessage,
+    String? errorTextField,
+  }) {
+    return LoginState(
+      isLoading: isLoading ?? this.isLoading,
+      isSuccess: isSuccess ?? this.isSuccess,
+      notificationId: notificationId ?? this.notificationId,
+      successMessage: successMessage,
+      errorMessage: errorMessage,
+      errorTextField: errorTextField,
+    );
+  }
+}

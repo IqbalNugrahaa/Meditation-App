@@ -1,7 +1,7 @@
 import 'package:metidation_app/model/request/auth/register_request.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../services/auth_services.dart';
+import '../../services/auth/auth_services.dart';
 
 part 'register_view_model.g.dart';
 
@@ -19,7 +19,10 @@ class RegisterViewModel extends _$RegisterViewModel {
     );
   }
 
-  Future<void> signUp({required String email, required String password}) async {
+  Future<void> register({
+    required String email,
+    required String password,
+  }) async {
     if (!state.isAgreed) {
       state = state.copyWith(
         toastMessage: "Please agree to the Terms & Conditions",

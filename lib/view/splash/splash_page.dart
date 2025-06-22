@@ -3,17 +3,22 @@
 import 'package:flutter/material.dart';
 import 'package:metidation_app/core/constants/image_assets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:metidation_app/viewmodels/splash/splash_view_model.dart';
+import 'package:metidation_app/core/helpers/session_manager.dart';
 
 class SplashPage extends HookWidget {
   const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = SplashViewModel();
-
     useEffect(() {
-      viewModel.navigateToLogin(context);
+      Future.delayed(const Duration(seconds: 3), () async {
+        final hasSession = await SessionManager.hasSession();
+        if (hasSession) {
+          Navigator.pushReplacementNamed(context, '/welcome');
+        } else {
+          Navigator.pushReplacementNamed(context, '/auth');
+        }
+      });
 
       return null;
     }, []);

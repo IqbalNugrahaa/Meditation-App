@@ -4,6 +4,8 @@ class ImageAssets {
   static const String dayAuth = '$_basePath/day_auth.webp';
   static const String frame = '$_basePath/frame.webp';
   static const String frameSignup = '$_basePath/frame_signup.webp';
+  static const String welcome = '$_basePath/welcome.webp';
+
   static const String facebook = '$_basePath/facebook.webp';
   static const String google = '$_basePath/google.webp';
 }

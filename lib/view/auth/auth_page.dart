@@ -7,15 +7,12 @@ import 'package:metidation_app/core/constants/icon_assets.dart';
 import 'package:metidation_app/core/constants/image_assets.dart';
 import 'package:metidation_app/core/utils/media_query_util.dart';
 import 'package:metidation_app/core/components/app_text.dart';
-import 'package:metidation_app/viewmodels/auth/auth_view_model.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = AuthViewModel();
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -67,7 +64,7 @@ class AuthPage extends StatelessWidget {
                 ],
               ),
               AppText(
-                text: AppStrings.headingLogin,
+                text: AppStrings.headingAuth,
                 fontSize: 30,
                 fontWeight: FontWeight.w700,
               ),
@@ -77,7 +74,7 @@ class AuthPage extends StatelessWidget {
                   horizontal: 58,
                 ),
                 child: AppText(
-                  text: AppStrings.titleLogin,
+                  text: AppStrings.titleAuth,
                   fontSize: 16,
                   fontWeight: FontWeight.w300,
                   textAlign: TextAlign.center,
@@ -89,7 +86,7 @@ class AuthPage extends StatelessWidget {
                 child: AppButton.contained(
                   text: AppStrings.signUp,
                   onPressed: () {
-                    viewModel.navigateToSignUp(context);
+                    Navigator.pushNamed(context, '/register');
                   },
                   backgroundColor: AppColors.buttonColorPurple,
                   width: ScreenSize.width(context),
@@ -108,11 +105,16 @@ class AuthPage extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     color: AppColors.textColorGrey,
                   ),
-                  AppText(
-                    text: AppStrings.login.toUpperCase(),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.textColorPurple,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    child: AppText(
+                      text: AppStrings.login.toUpperCase(),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.textColorPurple,
+                    ),
                   ),
                 ],
               ),

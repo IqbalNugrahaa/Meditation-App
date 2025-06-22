@@ -3,14 +3,13 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:metidation_app/model/request/auth/register_request.dart';
-import 'package:metidation_app/model/response/auth/register_response.dart';
+import 'package:metidation_app/model/response/user/user_response_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'auth_services.g.dart';
+part 'user_services.g.dart';
 
 @riverpod
-AuthServices authService(Ref ref) {
+UserServices userServices(Ref ref) {
   final baseUrl = dotenv.env['API_BASE_URL'];
   final apiKey = dotenv.env['API_KEY'];
 
@@ -41,26 +40,23 @@ AuthServices authService(Ref ref) {
     logPrint: (object) => log(object.toString()),
   ));
 
-  return AuthServices(dio);
+  return UserServices(dio);
 }
 
-class AuthServices {
+class UserServices {
   final Dio _dio;
-  AuthServices(this._dio);
+  UserServices(this._dio);
 
-  Future<RegisterResponseModel> register(
-    RegisterRequestModel registerRequestModel,
-  ) async {
+  Future<UserResponseModel> getUserById() async {
     try {
-      final response = await _dio.post(
-        '/api/register',
-        data: registerRequestModel.toJson(),
+      final response = await _dio.get(
+        '/api/users/2',
       );
 
-      return RegisterResponseModel.fromMap(response.data);
+      return UserResponseModel.fromMap(response.data);
     } on DioException catch (e) {
       if (e.response?.data is Map<String, dynamic>) {
-        return RegisterResponseModel.fromMap(e.response!.data);
+        return UserResponseModel.fromMap(e.response!.data);
       }
 
       // Kalau tidak → lempar exception biasa

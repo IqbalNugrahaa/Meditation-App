@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:metidation_app/view/not_found_page.dart';
 
 import 'core/routes/app_routes.dart';
 
@@ -26,6 +27,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: AppRoutes.splash,
       routes: AppRoutes.routes,
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (context) => EmptyPage(routeName: settings.name),
+        );
+      },
     );
   }
 }

@@ -2,39 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:metidation_app/core/components/app_button.dart';
-import 'package:metidation_app/core/components/app_button_back.dart';
-import 'package:metidation_app/core/components/app_text.dart';
-import 'package:metidation_app/core/components/app_text_field.dart';
-import 'package:metidation_app/core/constants/app_colors.dart';
-import 'package:metidation_app/core/constants/app_strings.dart';
-import 'package:metidation_app/core/constants/image_assets.dart';
-import 'package:metidation_app/core/utils/media_query_util.dart';
-import 'package:metidation_app/viewmodels/register/register_view_model.dart';
 
-class RegisterPage extends HookConsumerWidget {
-  const RegisterPage({super.key});
+import '../../core/components/app_button.dart';
+import '../../core/components/app_button_back.dart';
+import '../../core/components/app_text.dart';
+import '../../core/components/app_text_field.dart';
+import '../../core/constants/app_colors.dart';
+import '../../core/constants/app_strings.dart';
+import '../../core/constants/image_assets.dart';
+import '../../core/utils/media_query_util.dart';
+import '../../viewmodels/login/login_view_model.dart';
+
+class LoginPage extends HookConsumerWidget {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final emailController = useTextEditingController();
-    final passwordController = useTextEditingController();
     final formKey = useMemoized(() => GlobalKey<FormState>());
 
-    final registerState = ref.watch(registerViewModelProvider);
-    final viewModel = ref.read(registerViewModelProvider.notifier);
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
 
-    ref.listen(registerViewModelProvider.select((s) => s.notificationId),
+    final loginState = ref.watch(loginViewModelProvider);
+    final viewModel = ref.read(loginViewModelProvider.notifier);
+
+    ref.listen(loginViewModelProvider.select((s) => s.notificationId),
         (prev, next) {
-      final state = ref.read(registerViewModelProvider);
+      final state = ref.read(loginViewModelProvider);
 
-      if (state.toastMessage != null) {
-        Fluttertoast.showToast(msg: state.toastMessage!);
+      if (state.errorMessage != null) {
+        Fluttertoast.showToast(msg: state.errorMessage!);
       }
 
-      if (state.isSuccess && state.successMessage != null) {
+      if (state.isSuccess == true) {
         Fluttertoast.showToast(msg: state.successMessage!);
-        Navigator.pushNamed(context, '/login');
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          '/welcome',
+          (route) => false,
+        );
       }
     });
 
@@ -68,7 +74,7 @@ class RegisterPage extends HookConsumerWidget {
                       SizedBox(
                         width: ScreenSize.width(context),
                         child: AppText(
-                          text: AppStrings.headingRegister,
+                          text: AppStrings.headingLogin,
                           fontSize: 28,
                           fontWeight: FontWeight.w700,
                           textAlign: TextAlign.center,
@@ -125,7 +131,7 @@ class RegisterPage extends HookConsumerWidget {
 
                           return null;
                         },
-                        errorText: registerState.errorTextField,
+                        errorText: loginState.errorTextField,
                         textInputType: TextInputType.emailAddress,
                       ),
                       SizedBox(height: 20),
@@ -143,37 +149,10 @@ class RegisterPage extends HookConsumerWidget {
 
                           return null;
                         },
-                        errorText: registerState.errorTextField,
+                        errorText: loginState.errorTextField,
                       ),
-                      SizedBox(height: 20),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        trailing: Checkbox(
-                          value: registerState.isAgreed,
-                          onChanged: (_) => viewModel.toggleAgreement(),
-                          activeColor: AppColors.buttonColorPurple,
-                        ),
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            AppText(
-                              text: AppStrings.agreement,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.textColorGrey,
-                            ),
-                            SizedBox(width: 4),
-                            AppText(
-                              text: AppStrings.privacyPolicy,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.textColorPrivacyPolicy,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 32.83),
-                      registerState.isLoading
+                      SizedBox(height: 30),
+                      loginState.isLoading
                           ? Center(
                               child: CircularProgressIndicator(
                                 color: AppColors.buttonColorPurple,
@@ -181,10 +160,10 @@ class RegisterPage extends HookConsumerWidget {
                             )
                           : AppButton.contained(
                               backgroundColor: AppColors.buttonColorPurple,
-                              text: AppStrings.getStarted,
+                              text: AppStrings.login,
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  viewModel.register(
+                                  viewModel.login(
                                     email: emailController.text,
                                     password: passwordController.text,
                                   );
@@ -192,6 +171,41 @@ class RegisterPage extends HookConsumerWidget {
                               },
                               borderRadius: 38,
                             ),
+                      SizedBox(height: 20),
+                      SizedBox(
+                        width: ScreenSize.width(context),
+                        child: AppText(
+                          text: '${AppStrings.forgotPassword}?',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.textColorBlack,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(height: 104.53),
+                      Row(
+                        spacing: 4,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AppText(
+                            text: AppStrings.notHaveAnAccount,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.textColorGrey,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/register');
+                            },
+                            child: AppText(
+                              text: AppStrings.signUp.toUpperCase(),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.textColorPurple,
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
