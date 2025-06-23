@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'register_view_model.dart';
+part of 'auth_repository_impl.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$registerViewModelHash() => r'0bba0ad14d328792dfe17f1087dd8a012504f6e8';
+String _$authRepositoryHash() => r'4c25b9f514aefef3ac199c91f98b7cecb182b548';
 
-/// See also [RegisterViewModel].
-@ProviderFor(RegisterViewModel)
-final registerViewModelProvider =
-    AutoDisposeNotifierProvider<RegisterViewModel, RegisterState>.internal(
-  RegisterViewModel.new,
-  name: r'registerViewModelProvider',
+/// See also [authRepository].
+@ProviderFor(authRepository)
+final authRepositoryProvider = AutoDisposeProvider<AuthRepository>.internal(
+  authRepository,
+  name: r'authRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$registerViewModelHash,
+      : _$authRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$RegisterViewModel = AutoDisposeNotifier<RegisterState>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef AuthRepositoryRef = AutoDisposeProviderRef<AuthRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -80,6 +80,7 @@ class WelcomePage extends HookConsumerWidget {
                                 height: 41.5,
                               ),
                             ),
+                            SizedBox(height: 8),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 24,
@@ -116,7 +117,7 @@ class WelcomePage extends HookConsumerWidget {
                               textAlign: TextAlign.center,
                             ),
                             AppText(
-                              text: 'to Silent Moon',
+                              text: AppStrings.toSilentMoon,
                               fontSize: 30,
                               fontWeight: FontWeight.w400,
                               color: AppColors.textColorWhite,
@@ -151,7 +152,9 @@ class WelcomePage extends HookConsumerWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 borderRadius: 38,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/topic');
+                },
               ),
             ),
           ],

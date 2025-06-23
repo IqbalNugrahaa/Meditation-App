@@ -1,7 +1,7 @@
-import 'package:metidation_app/model/request/auth/register_request.dart';
+import 'package:metidation_app/data/model/request/auth/register_request.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../services/auth/auth_services.dart';
+import '../../data/repositories/auth/auth_repository_impl.dart';
 
 part 'register_view_model.g.dart';
 
@@ -41,8 +41,8 @@ class RegisterViewModel extends _$RegisterViewModel {
     );
 
     try {
-      final auth = ref.read(authServiceProvider);
-      final result = await auth.register(
+      final repository = ref.read(authRepositoryProvider);
+      final result = await repository.register(
         RegisterRequestModel(
           email: email,
           password: password,

@@ -1,6 +1,7 @@
-import 'package:metidation_app/model/response/user/user_response_model.dart';
-import 'package:metidation_app/services/user/user_services.dart';
+import 'package:metidation_app/data/model/response/user/user_response_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../data/repositories/user/user_repository_impl.dart';
 
 part 'welcome_view_model.g.dart';
 
@@ -20,8 +21,8 @@ class WelcomeViewModel extends _$WelcomeViewModel {
     );
 
     try {
-      final user = ref.read(userServicesProvider);
-      final result = await user.getUserById();
+      final repository = ref.read(userRepositoryProvider);
+      final result = await repository.getUserById();
 
       if (result.data != null) {
         state = state.copyWith(

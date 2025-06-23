@@ -6,7 +6,7 @@ part of 'welcome_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$welcomeViewModelHash() => r'e9be03942339fd13fb78ca0032df4def4bfddf83';
+String _$welcomeViewModelHash() => r'ee9abfa0e852d12762ef1a62e9c2cfed12cce98e';
 
 /// See also [WelcomeViewModel].
 @ProviderFor(WelcomeViewModel)

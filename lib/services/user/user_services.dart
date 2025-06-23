@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:metidation_app/model/response/user/user_response_model.dart';
+import 'package:metidation_app/data/model/response/user/user_response_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_services.g.dart';

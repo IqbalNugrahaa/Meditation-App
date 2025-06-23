@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color primaryColor = Color(0xFF8E97FD);
+  static const Color greyColor = Color(0xFFE5E5E5);
   static const Color baseColor = Color(0xFFE0E0E0);
   static const Color highlightColor = Color(0xFFF5F5F5);
 
@@ -16,10 +17,19 @@ class AppColors {
   static const Color textColorGrey = Color(0xFFA1A4B2);
   static const Color textColorPurple = Color(0xFF8E97FD);
   static const Color textColorPrivacyPolicy = Color(0xFFB2BAE1);
+  static const Color textCard = Color(0xFFFEF9F3);
 
   // BORDER
   static const Color borderColorGrey = Color(0xFFEBEAEC);
 
   // TEXT FIELD
   static const Color fillColorTextField = Color(0xFFF2F3F7);
+
+  // Card
+  static const Color cardStress = Color(0xFF8E97FD);
+  static const Color cardPerformance = Color(0xFFFA6E5A);
+  static const Color cardHappiness = Color(0xFFFEB18F);
+  static const Color cardAnxiety = Color(0xFFFFCF86);
+  static const Color cardGrowth = Color(0xFF6CB28E);
+  static const Color cardSleep = Color(0xFF3F414E);
 }

@@ -23,6 +23,10 @@ class AppStrings {
   static const String welcomeHeader =
       "Explore the app, Find some peace of mind to prepare for meditation.";
 
+  // Topic
+  static const String topicHeader = "What Bring You";
+  static const String chooseTopic = "choose a topic to focuse on:";
+
   // Action
   static const String signUp = "Sign Up";
   static const String login = "Log In";
@@ -30,6 +34,7 @@ class AppStrings {
   static const String alreadyHaveAnAccount = "ALREADY HAVE AN ACCOUNT?";
   static const String notHaveAnAccount = "NOT HAVE AN ACCOUNT?";
   static const String getStarted = "GET STARTED";
+  static const String toSilentMoon = "to Silent Moon";
 
   // Message
   static const String msgEmptyEmail = "Email can't be empty";

@@ -5,7 +5,14 @@ class ImageAssets {
   static const String frame = '$_basePath/frame.webp';
   static const String frameSignup = '$_basePath/frame_signup.webp';
   static const String welcome = '$_basePath/welcome.webp';
+  static const String topic = '$_basePath/topic.webp';
 
   static const String facebook = '$_basePath/facebook.webp';
   static const String google = '$_basePath/google.webp';
+  static const String stress = '$_basePath/stress.webp';
+  static const String performance = '$_basePath/performance.webp';
+  static const String happiness = '$_basePath/happiness.webp';
+  static const String anxiety = '$_basePath/anxiety.webp';
+  static const String growth = '$_basePath/growth.webp';
+  static const String sleep = '$_basePath/sleep.webp';
 }

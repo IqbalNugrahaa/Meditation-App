@@ -1,8 +1,8 @@
-import 'package:metidation_app/services/auth/auth_services.dart';
+import 'package:metidation_app/data/repositories/auth/auth_repository_impl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../core/helpers/session_manager.dart';
-import '../../model/request/auth/login_request.dart';
+import '../../data/model/request/auth/login_request.dart';
 
 part 'login_view_model.g.dart';
 
@@ -27,8 +27,8 @@ class LoginViewModel extends _$LoginViewModel {
     );
 
     try {
-      final auth = ref.read(authServiceProvider);
-      final result = await auth.login(
+      final repository = ref.read(authRepositoryProvider);
+      final result = await repository.login(
         LoginRequestModel(
           email: email,
           password: password,

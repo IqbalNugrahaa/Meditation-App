@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-class RegisterResponseModel {
+class LoginResponseModel {
   final String? token;
   final String? error;
 
-  RegisterResponseModel({
+  LoginResponseModel({
     this.token,
     this.error,
   });
 
-  factory RegisterResponseModel.fromJson(String str) =>
-      RegisterResponseModel.fromMap(json.decode(str));
+  factory LoginResponseModel.fromJson(String str) =>
+      LoginResponseModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory RegisterResponseModel.fromMap(Map<String, dynamic> json) =>
-      RegisterResponseModel(
+  factory LoginResponseModel.fromMap(Map<String, dynamic> json) =>
+      LoginResponseModel(
         token: json["token"],
         error: json["error"],
       );

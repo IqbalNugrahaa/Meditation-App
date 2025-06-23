@@ -3,9 +3,10 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:metidation_app/model/request/auth/login_request.dart';
-import 'package:metidation_app/model/request/auth/register_request.dart';
-import 'package:metidation_app/model/response/auth/register_response.dart';
+import 'package:metidation_app/data/model/request/auth/login_request.dart';
+import 'package:metidation_app/data/model/request/auth/register_request.dart';
+import 'package:metidation_app/data/model/response/auth/login_response.dart';
+import 'package:metidation_app/data/model/response/auth/register_response.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_services.g.dart';
@@ -71,7 +72,7 @@ class AuthServices {
     }
   }
 
-  Future<RegisterResponseModel> login(
+  Future<LoginResponseModel> login(
     LoginRequestModel loginRequestModel,
   ) async {
     try {
@@ -80,10 +81,10 @@ class AuthServices {
         data: loginRequestModel.toJson(),
       );
 
-      return RegisterResponseModel.fromMap(response.data);
+      return LoginResponseModel.fromMap(response.data);
     } on DioException catch (e) {
       if (e.response?.data is Map<String, dynamic>) {
-        return RegisterResponseModel.fromMap(e.response!.data);
+        return LoginResponseModel.fromMap(e.response!.data);
       }
 
       // Kalau tidak → lempar exception biasa
