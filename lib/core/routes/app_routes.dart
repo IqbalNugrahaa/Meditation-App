@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:metidation_app/view/auth/auth_page.dart';
 import 'package:metidation_app/view/splash/splash_page.dart';
 
+import '../../view/bottom_navigation/bottom_navigation_page.dart';
 import '../../view/login/login_page.dart';
 import '../../view/register/register_page.dart';
+import '../../view/reminder/reminder_page.dart';
 import '../../view/topic/topic_page.dart';
 import '../../view/welcome/welcome_page.dart';
 
@@ -14,6 +16,9 @@ class AppRoutes {
   static const String login = '/login';
   static const String welcome = '/welcome';
   static const String topic = '/topic';
+  static const String reminder = '/reminder';
+
+  static const String bottomNavigation = '/bottom-navigation';
 
   static Map<String, WidgetBuilder> routes = {
     splash: (context) => const SplashPage(),
@@ -22,5 +27,7 @@ class AppRoutes {
     login: (context) => const LoginPage(),
     welcome: (context) => const WelcomePage(),
     topic: (context) => const TopicPage(),
+    reminder: (context) => const ReminderPage(),
+    bottomNavigation: (context) => const BottomNavigationPage(),
   };
 }

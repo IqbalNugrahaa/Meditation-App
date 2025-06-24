@@ -85,7 +85,6 @@ class TopicPage extends HookConsumerWidget {
                 ],
               ),
             ),
-            // ✅ Tombol Pilih muncul dengan animasi di bawah
             Positioned(
               left: 20,
               right: 20,
@@ -103,8 +102,10 @@ class TopicPage extends HookConsumerWidget {
                 },
                 child: selectedIndex != null
                     ? AppButton.contained(
-                        text: AppStrings.getStarted,
-                        onPressed: () {},
+                        text: AppStrings.next,
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/reminder');
+                        },
                         backgroundColor: AppColors.buttonColorPurple,
                         borderRadius: 32,
                         fontSize: 16,

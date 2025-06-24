@@ -11,7 +11,7 @@ class AppButtonBack extends StatelessWidget {
     this.height = 55,
     this.width = 55,
     this.backgroundColor = Colors.white,
-    this.borderColor = AppColors.borderColorGrey,
+    this.borderColor = AppColors.borderColorBrokenWhite,
   });
 
   @override

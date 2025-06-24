@@ -98,7 +98,7 @@ class LoginPage extends HookConsumerWidget {
                       AppButton.outline(
                         text: AppStrings.buttonGoogle,
                         borderRadius: 38,
-                        borderColor: AppColors.borderColorGrey,
+                        borderColor: AppColors.borderColorBrokenWhite,
                         textColor: AppColors.textColorBlack,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,

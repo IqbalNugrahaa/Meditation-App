@@ -7,11 +7,11 @@ double getCardHeight(int index) {
     case 0:
       return 210;
     case 1:
-      return 167;
+      return 177;
     case 2:
       return 210;
     case 3:
-      return 167;
+      return 177;
     default:
       return 167; // fallback, meskipun tidak pernah terjadi
   }

@@ -43,9 +43,12 @@ class TopicCard extends StatelessWidget {
               : [],
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(imageAsset, height: 50),
+            Image.asset(
+              imageAsset,
+              height: 85,
+            ),
             const SizedBox(height: 8),
             Text(
               title,

@@ -20,7 +20,12 @@ class AppColors {
   static const Color textCard = Color(0xFFFEF9F3);
 
   // BORDER
-  static const Color borderColorGrey = Color(0xFFEBEAEC);
+  static const Color borderColorBrokenWhite = Color(0xFFEBEAEC);
+  static const Color borderColorGrey = Color(0xFFA1A4B2);
+
+  // Background
+  static const Color backgroundColorBrokenWhite = Color(0xFFF5F5F9);
+  static const Color backgroundColorGrey = Color(0xFF3F414E);
 
   // TEXT FIELD
   static const Color fillColorTextField = Color(0xFFF2F3F7);

@@ -27,6 +27,21 @@ class AppStrings {
   static const String topicHeader = "What Bring You";
   static const String chooseTopic = "choose a topic to focuse on:";
 
+  // Reminder
+  static const String reminderHeader = "What time would you like to meditate?";
+  static const String reminderRecommendation =
+      "Any time you can choose but We recommend first thing in th morning.";
+  static const String reminderDay = "Which day would you like to meditate?";
+  static const String reminderDayRecommendation =
+      "Everyday is best, but we recommend picking at least five.";
+
+  // BOTTOM NAVIGATION
+  static const String home = "Home";
+  static const String sleep = "Sleep";
+  static const String meditate = "Meditate";
+  static const String music = "Music";
+  static const String profile = "Profile";
+
   // Action
   static const String signUp = "Sign Up";
   static const String login = "Log In";
@@ -35,6 +50,9 @@ class AppStrings {
   static const String notHaveAnAccount = "NOT HAVE AN ACCOUNT?";
   static const String getStarted = "GET STARTED";
   static const String toSilentMoon = "to Silent Moon";
+  static const String next = "Next";
+  static const String save = "SAVE";
+  static const String noThanks = "NO THANKS";
 
   // Message
   static const String msgEmptyEmail = "Email can't be empty";
