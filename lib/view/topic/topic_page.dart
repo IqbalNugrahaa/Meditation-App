@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:metidation_app/core/components/app_text.dart';
 import 'package:metidation_app/core/constants/app_colors.dart';
@@ -104,7 +105,7 @@ class TopicPage extends HookConsumerWidget {
                     ? AppButton.contained(
                         text: AppStrings.next,
                         onPressed: () {
-                          Navigator.pushNamed(context, '/reminder');
+                          context.push('/reminder');
                         },
                         backgroundColor: AppColors.buttonColorPurple,
                         borderRadius: 32,

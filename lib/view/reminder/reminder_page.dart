@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:metidation_app/core/components/app_button.dart';
 import 'package:metidation_app/core/components/app_text.dart';
@@ -139,11 +140,7 @@ class ReminderPage extends HookConsumerWidget {
                 SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      '/bottom-navigation',
-                      (route) => false,
-                    );
+                    context.go('/home');
                   },
                   child: AppText(
                     text: AppStrings.noThanks,

@@ -15,4 +15,8 @@ class ImageAssets {
   static const String anxiety = '$_basePath/anxiety.webp';
   static const String growth = '$_basePath/growth.webp';
   static const String sleep = '$_basePath/sleep.webp';
+  static const String basic = '$_basePath/basic.webp';
+  static const String relax = '$_basePath/relax.webp';
+  static const String meditation = '$_basePath/meditation.webp';
+  static const String focus = '$_basePath/focus.webp';
 }

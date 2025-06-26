@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:metidation_app/core/components/app_button.dart';
 import 'package:metidation_app/core/components/app_button_back.dart';
@@ -34,7 +35,7 @@ class RegisterPage extends HookConsumerWidget {
 
       if (state.isSuccess && state.successMessage != null) {
         Fluttertoast.showToast(msg: state.successMessage!);
-        Navigator.pushNamed(context, '/login');
+        context.push('/login');
       }
     });
 
@@ -61,7 +62,7 @@ class RegisterPage extends HookConsumerWidget {
                     children: [
                       AppButtonBack(
                         onTap: () {
-                          Navigator.pop(context);
+                          context.pop();
                         },
                       ),
                       SizedBox(height: 28.47),

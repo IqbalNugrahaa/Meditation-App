@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:metidation_app/core/components/app_button.dart';
 import 'package:metidation_app/core/components/shimmer_placeholder.dart';
@@ -49,17 +50,17 @@ class WelcomePage extends HookConsumerWidget {
                     spacing: 10,
                     children: [
                       AppText(
-                        text: "Silent",
+                        text: AppStrings.appName.split(" ")[0],
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.textColorWhite,
+                        color: AppColors.textColorBlack,
                       ),
                       SvgPicture.asset(IconAssets.logoBlue),
                       AppText(
-                        text: "Moon",
+                        text: AppStrings.appName.split(" ")[1],
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.textColorWhite,
+                        color: AppColors.textColorBlack,
                       ),
                     ],
                   ),
@@ -153,7 +154,7 @@ class WelcomePage extends HookConsumerWidget {
                 fontWeight: FontWeight.w500,
                 borderRadius: 38,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/topic');
+                  context.push('/topic');
                 },
               ),
             ),

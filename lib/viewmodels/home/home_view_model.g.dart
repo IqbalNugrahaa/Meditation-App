@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'back_press_view_model.dart';
+part of 'home_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$backPressViewModelHash() =>
-    r'c11b3a4ff9a394568f2cef95ed649d00003ab26f';
+String _$homeViewModelHash() => r'6b991fe0fe7cff6f4eb37b346de51b0ee574dfb2';
 
-/// See also [BackPressViewModel].
-@ProviderFor(BackPressViewModel)
-final backPressViewModelProvider =
-    AutoDisposeNotifierProvider<BackPressViewModel, DateTime?>.internal(
-  BackPressViewModel.new,
-  name: r'backPressViewModelProvider',
+/// See also [HomeViewModel].
+@ProviderFor(HomeViewModel)
+final homeViewModelProvider =
+    AutoDisposeNotifierProvider<HomeViewModel, HomeState>.internal(
+  HomeViewModel.new,
+  name: r'homeViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$backPressViewModelHash,
+      : _$homeViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$BackPressViewModel = AutoDisposeNotifier<DateTime?>;
+typedef _$HomeViewModel = AutoDisposeNotifier<HomeState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

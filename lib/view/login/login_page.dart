@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../core/components/app_button.dart';
@@ -36,11 +37,7 @@ class LoginPage extends HookConsumerWidget {
 
       if (state.isSuccess == true) {
         Fluttertoast.showToast(msg: state.successMessage!);
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          '/welcome',
-          (route) => false,
-        );
+        context.go('/welcome');
       }
     });
 
@@ -67,7 +64,7 @@ class LoginPage extends HookConsumerWidget {
                     children: [
                       AppButtonBack(
                         onTap: () {
-                          Navigator.pop(context);
+                          context.pop();
                         },
                       ),
                       SizedBox(height: 28.47),
@@ -195,7 +192,7 @@ class LoginPage extends HookConsumerWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, '/register');
+                              context.push('/register');
                             },
                             child: AppText(
                               text: AppStrings.signUp.toUpperCase(),

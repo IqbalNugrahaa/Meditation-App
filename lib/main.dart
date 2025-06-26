@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:metidation_app/view/not_found_page.dart';
 
 import 'core/routes/app_routes.dart';
 
@@ -20,18 +19,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'HelveticaNeue',
       ),
-      initialRoute: AppRoutes.splash,
-      routes: AppRoutes.routes,
-      onUnknownRoute: (settings) {
-        return MaterialPageRoute(
-          builder: (context) => EmptyPage(routeName: settings.name),
-        );
-      },
+      routerConfig: router,
     );
   }
 }

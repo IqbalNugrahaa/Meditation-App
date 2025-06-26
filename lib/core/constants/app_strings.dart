@@ -1,5 +1,5 @@
 class AppStrings {
-  static const String appName = 'Meditation App';
+  static const String appName = 'Silent Moon';
 
   // AUTH
   static const String headingAuth = "We are what we do";
@@ -42,6 +42,12 @@ class AppStrings {
   static const String music = "Music";
   static const String profile = "Profile";
 
+  // HOME
+  static const String homeGreeting = "We Wish you have a good day";
+  static const String homeDaily = "Daily Throught";
+  static const String homeMeditation = "Meditation";
+  static const String homeRecommendation = "Recomended for you";
+
   // Action
   static const String signUp = "Sign Up";
   static const String login = "Log In";
@@ -53,6 +59,7 @@ class AppStrings {
   static const String next = "Next";
   static const String save = "SAVE";
   static const String noThanks = "NO THANKS";
+  static const String goodMorning = "Good Morning";
 
   // Message
   static const String msgEmptyEmail = "Email can't be empty";

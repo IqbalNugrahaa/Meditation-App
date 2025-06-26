@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:metidation_app/core/components/app_button.dart';
 import 'package:metidation_app/core/constants/app_colors.dart';
 import 'package:metidation_app/core/constants/app_strings.dart';
@@ -38,14 +39,14 @@ class AuthPage extends StatelessWidget {
                           spacing: 10,
                           children: [
                             AppText(
-                              text: "Silent",
+                              text: AppStrings.appName.split(" ")[0],
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                               color: AppColors.textColorBlack,
                             ),
                             SvgPicture.asset(IconAssets.logo),
                             AppText(
-                              text: "Moon",
+                              text: AppStrings.appName.split(" ")[1],
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                               color: AppColors.textColorBlack,
@@ -86,7 +87,7 @@ class AuthPage extends StatelessWidget {
                 child: AppButton.contained(
                   text: AppStrings.signUp,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/register');
+                    context.push('/register');
                   },
                   backgroundColor: AppColors.buttonColorPurple,
                   width: ScreenSize.width(context),
@@ -107,7 +108,7 @@ class AuthPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/login');
+                      context.push('/login');
                     },
                     child: AppText(
                       text: AppStrings.login.toUpperCase(),

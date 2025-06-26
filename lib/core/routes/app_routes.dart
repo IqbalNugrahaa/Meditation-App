@@ -1,33 +1,74 @@
-import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:metidation_app/view/auth/auth_page.dart';
+import 'package:metidation_app/view/login/login_page.dart';
+import 'package:metidation_app/view/register/register_page.dart';
+import 'package:metidation_app/view/reminder/reminder_page.dart';
 import 'package:metidation_app/view/splash/splash_page.dart';
+import 'package:metidation_app/view/topic/topic_page.dart';
+import 'package:metidation_app/view/welcome/welcome_page.dart';
 
-import '../../view/bottom_navigation/bottom_navigation_page.dart';
-import '../../view/login/login_page.dart';
-import '../../view/register/register_page.dart';
-import '../../view/reminder/reminder_page.dart';
-import '../../view/topic/topic_page.dart';
-import '../../view/welcome/welcome_page.dart';
+import 'package:metidation_app/view/bottom_navigation/bottom_navigation_page.dart';
+import 'package:metidation_app/view/home/home_page.dart';
 
-class AppRoutes {
-  static const String splash = '/';
-  static const String auth = '/auth';
-  static const String register = '/register';
-  static const String login = '/login';
-  static const String welcome = '/welcome';
-  static const String topic = '/topic';
-  static const String reminder = '/reminder';
+import '../../view/not_found_page.dart';
 
-  static const String bottomNavigation = '/bottom-navigation';
+final GoRouter router = GoRouter(
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+      path: '/',
+      name: 'splash',
+      builder: (context, state) => const SplashPage(),
+    ),
+    GoRoute(
+      path: '/auth',
+      name: 'auth',
+      builder: (context, state) => const AuthPage(),
+    ),
+    GoRoute(
+      path: '/register',
+      name: 'register',
+      builder: (context, state) => const RegisterPage(),
+    ),
+    GoRoute(
+      path: '/login',
+      name: 'login',
+      builder: (context, state) => const LoginPage(),
+    ),
+    GoRoute(
+      path: '/welcome',
+      name: 'welcome',
+      builder: (context, state) => const WelcomePage(),
+    ),
+    GoRoute(
+      path: '/topic',
+      name: 'topic',
+      builder: (context, state) => const TopicPage(),
+    ),
+    GoRoute(
+      path: '/reminder',
+      name: 'reminder',
+      builder: (context, state) => const ReminderPage(),
+    ),
 
-  static Map<String, WidgetBuilder> routes = {
-    splash: (context) => const SplashPage(),
-    auth: (context) => const AuthPage(),
-    register: (context) => const RegisterPage(),
-    login: (context) => const LoginPage(),
-    welcome: (context) => const WelcomePage(),
-    topic: (context) => const TopicPage(),
-    reminder: (context) => const ReminderPage(),
-    bottomNavigation: (context) => const BottomNavigationPage(),
-  };
-}
+    // BOTTOM NAVIGATION: gunakan ShellRoute
+    ShellRoute(
+      builder: (context, state, child) => BottomNavigationPage(
+        child: child,
+      ),
+      routes: [
+        GoRoute(
+          path: '/home',
+          name: 'home',
+          builder: (context, state) => const HomePage(),
+        ),
+        // GoRoute(
+        //   path: '/music',
+        //   name: 'music',
+        //   builder: (context, state) => const MusicPage(),
+        // ),
+      ],
+    ),
+  ],
+  errorBuilder: (context, state) => const EmptyPage(),
+);
