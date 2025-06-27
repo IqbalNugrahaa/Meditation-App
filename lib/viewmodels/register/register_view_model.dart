@@ -1,4 +1,3 @@
-import 'package:metidation_app/data/model/request/auth/register_request.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/repositories/auth/auth_repository_impl.dart';
@@ -43,26 +42,46 @@ class RegisterViewModel extends _$RegisterViewModel {
     try {
       final repository = ref.read(authRepositoryProvider);
       final result = await repository.register(
-        RegisterRequestModel(
-          email: email,
-          password: password,
-        ),
+        email: email,
+        password: password,
       );
 
-      if (result.token != null) {
-        state = state.copyWith(
-          isLoading: false,
-          isSuccess: true,
-          successMessage: result.token,
-          notificationId: state.notificationId + 1,
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          toastMessage: result.error,
-          notificationId: state.notificationId + 1,
-        );
-      }
+      state = state.copyWith(
+        isLoading: false,
+        isSuccess: true,
+        successMessage: result!.uid,
+        notificationId: state.notificationId + 1,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorTextField: null,
+        toastMessage: e.toString(),
+        notificationId: state.notificationId + 1,
+      );
+    }
+  }
+
+  Future<void> authWithGoogle() async {
+    // Reset dulu error sebelum loading
+    state = state.copyWith(
+      isLoading: true,
+      errorTextField: null,
+      toastMessage: null,
+      isSuccess: false,
+      notificationId: state.notificationId + 1,
+    );
+
+    try {
+      final repository = ref.read(authRepositoryProvider);
+      final result = await repository.authWithGoogle();
+
+      state = state.copyWith(
+        isLoading: false,
+        isSuccess: true,
+        successMessage: result!.uid,
+        notificationId: state.notificationId + 1,
+      );
     } catch (e) {
       state = state.copyWith(
         isLoading: false,

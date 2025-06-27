@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -30,6 +32,7 @@ class RegisterPage extends HookConsumerWidget {
       final state = ref.read(registerViewModelProvider);
 
       if (state.toastMessage != null) {
+        log("toastMessage: ${state.toastMessage}");
         Fluttertoast.showToast(msg: state.toastMessage!);
       }
 
@@ -101,7 +104,9 @@ class RegisterPage extends HookConsumerWidget {
                           ImageAssets.google,
                           height: 20,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          viewModel.authWithGoogle();
+                        },
                       ),
                       SizedBox(height: 40),
                       SizedBox(

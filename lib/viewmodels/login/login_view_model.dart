@@ -2,7 +2,6 @@ import 'package:metidation_app/data/repositories/auth/auth_repository_impl.dart'
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../core/helpers/session_manager.dart';
-import '../../data/model/request/auth/login_request.dart';
 
 part 'login_view_model.g.dart';
 
@@ -29,30 +28,52 @@ class LoginViewModel extends _$LoginViewModel {
     try {
       final repository = ref.read(authRepositoryProvider);
       final result = await repository.login(
-        LoginRequestModel(
-          email: email,
-          password: password,
-        ),
+        email: email,
+        password: password,
       );
+      await SessionManager.saveSession(
+        token: result!.uid,
+        email: email,
+      );
+      state = state.copyWith(
+        isLoading: false,
+        isSuccess: true,
+        successMessage: result.uid,
+        notificationId: state.notificationId + 1,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorTextField: null,
+        errorMessage: e.toString(),
+        notificationId: state.notificationId + 1,
+      );
+    }
+  }
 
-      if (result.token != null) {
-        await SessionManager.saveSession(
-          token: result.token!,
-          email: email,
-        );
-        state = state.copyWith(
-          isLoading: false,
-          isSuccess: true,
-          successMessage: result.token,
-          notificationId: state.notificationId + 1,
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          errorMessage: result.error,
-          notificationId: state.notificationId + 1,
-        );
-      }
+  Future<void> authWithGoogle() async {
+    // Reset dulu error sebelum loading
+    state = state.copyWith(
+      isLoading: true,
+      errorTextField: null,
+      errorMessage: null,
+      isSuccess: false,
+      notificationId: state.notificationId + 1,
+    );
+
+    try {
+      final repository = ref.read(authRepositoryProvider);
+      final result = await repository.authWithGoogle();
+      await SessionManager.saveSession(
+        token: result?.uid ?? "",
+        email: result?.email ?? "-",
+      );
+      state = state.copyWith(
+        isLoading: false,
+        isSuccess: true,
+        successMessage: result?.uid,
+        notificationId: state.notificationId + 1,
+      );
     } catch (e) {
       state = state.copyWith(
         isLoading: false,

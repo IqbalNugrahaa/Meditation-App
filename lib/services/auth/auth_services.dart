@@ -1,96 +1,92 @@
 import 'dart:developer';
 
-import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:metidation_app/data/model/request/auth/login_request.dart';
-import 'package:metidation_app/data/model/request/auth/register_request.dart';
-import 'package:metidation_app/data/model/response/auth/login_response.dart';
-import 'package:metidation_app/data/model/response/auth/register_response.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../data/model/response/auth/auth_failure.dart';
 
 part 'auth_services.g.dart';
 
 @riverpod
-AuthServices authService(Ref ref) {
-  final baseUrl = dotenv.env['API_BASE_URL'];
-  final apiKey = dotenv.env['API_KEY'];
-
-  if (baseUrl == null || apiKey == null) {
-    throw Exception('API_BASE_URL or API_KEY is missing in .env');
-  }
-
-  final dio = Dio(
-    BaseOptions(
-      baseUrl: baseUrl,
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
-      headers: {
-        "x-api-key": apiKey,
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-    ),
-  );
-
-  dio.interceptors.add(LogInterceptor(
-    request: true,
-    requestHeader: true,
-    requestBody: true,
-    responseHeader: false,
-    responseBody: true,
-    error: true,
-    logPrint: (object) => log(object.toString()),
-  ));
-
-  return AuthServices(dio);
-}
+AuthServices authServices(Ref ref) => AuthServices();
 
 class AuthServices {
-  final Dio _dio;
-  AuthServices(this._dio);
+  final _auth = FirebaseAuth.instance;
+  final _google = GoogleSignIn();
 
-  Future<RegisterResponseModel> register(
-    RegisterRequestModel registerRequestModel,
-  ) async {
+  Future<User?> register({
+    required String email,
+    required String password,
+  }) async {
     try {
-      final response = await _dio.post(
-        '/api/register',
-        data: registerRequestModel.toJson(),
+      final credential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
       );
+      log("response: ${credential.user}");
 
-      return RegisterResponseModel.fromMap(response.data);
-    } on DioException catch (e) {
-      if (e.response?.data is Map<String, dynamic>) {
-        return RegisterResponseModel.fromMap(e.response!.data);
-      }
-
-      // Kalau tidak → lempar exception biasa
-      throw Exception(e.message ?? 'Signup failed');
+      return credential.user;
+    } on FirebaseAuthException catch (e) {
+      log("response: ${e.code}");
+      throw AuthFailure(message: _mapFirebaseError(e.code));
     } catch (e) {
-      throw Exception('Unexpected error: $e');
+      throw AuthFailure(message: 'Unexpected error occurred.');
     }
   }
 
-  Future<LoginResponseModel> login(
-    LoginRequestModel loginRequestModel,
-  ) async {
+  Future<User?> login({
+    required String email,
+    required String password,
+  }) async {
     try {
-      final response = await _dio.post(
-        '/api/login',
-        data: loginRequestModel.toJson(),
+      final credential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
       );
 
-      return LoginResponseModel.fromMap(response.data);
-    } on DioException catch (e) {
-      if (e.response?.data is Map<String, dynamic>) {
-        return LoginResponseModel.fromMap(e.response!.data);
-      }
-
-      // Kalau tidak → lempar exception biasa
-      throw Exception(e.message ?? 'Signup failed');
+      return credential.user;
+    } on FirebaseAuthException catch (e) {
+      throw AuthFailure(message: _mapFirebaseError(e.code));
     } catch (e) {
-      throw Exception('Unexpected error: $e');
+      throw AuthFailure(message: 'Unexpected error occurred.');
+    }
+  }
+
+  Future<User?> authWithGoogle() async {
+    final googleUser = await _google.signIn();
+    if (googleUser == null) return null;
+
+    final googleAuth = await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final userCredential = await _auth.signInWithCredential(credential);
+    return userCredential.user;
+  }
+
+  Future<void> signOut() async {
+    await _google.signOut();
+    await _auth.signOut();
+  }
+
+  String _mapFirebaseError(String code) {
+    switch (code) {
+      case 'user-not-found':
+        return 'Account not found.';
+      case 'wrong-password':
+        return 'Incorrect password.';
+      case 'email-already-in-use':
+        return 'Email is already in use.';
+      case 'invalid-email':
+        return 'Invalid email address.';
+      case 'weak-password':
+        return 'Password is too weak.';
+      default:
+        return 'An error occurred. Code: $code';
     }
   }
 }

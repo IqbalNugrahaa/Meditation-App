@@ -1,9 +1,13 @@
-import 'package:metidation_app/data/model/request/auth/login_request.dart';
-import 'package:metidation_app/data/model/request/auth/register_request.dart';
-import 'package:metidation_app/data/model/response/auth/login_response.dart';
-import 'package:metidation_app/data/model/response/auth/register_response.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthRepository {
-  Future<RegisterResponseModel> register(RegisterRequestModel model);
-  Future<LoginResponseModel> login(LoginRequestModel model);
+  Future<User?> register({
+    required String email,
+    required String password,
+  });
+  Future<User?> login({
+    required String email,
+    required String password,
+  });
+  Future<User?> authWithGoogle();
 }
