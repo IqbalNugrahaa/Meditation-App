@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../data/repositories/auth/auth_repository_impl.dart';
+import '../../core/constants/app_strings.dart';
 
 part 'register_view_model.g.dart';
 
@@ -40,16 +40,10 @@ class RegisterViewModel extends _$RegisterViewModel {
     );
 
     try {
-      final repository = ref.read(authRepositoryProvider);
-      final result = await repository.register(
-        email: email,
-        password: password,
-      );
-
       state = state.copyWith(
         isLoading: false,
         isSuccess: true,
-        successMessage: result!.uid,
+        successMessage: AppStrings.msgSuccessLogin,
         notificationId: state.notificationId + 1,
       );
     } catch (e) {
@@ -73,13 +67,10 @@ class RegisterViewModel extends _$RegisterViewModel {
     );
 
     try {
-      final repository = ref.read(authRepositoryProvider);
-      final result = await repository.authWithGoogle();
-
       state = state.copyWith(
         isLoading: false,
         isSuccess: true,
-        successMessage: result!.uid,
+        successMessage: AppStrings.msgSuccessLogin,
         notificationId: state.notificationId + 1,
       );
     } catch (e) {

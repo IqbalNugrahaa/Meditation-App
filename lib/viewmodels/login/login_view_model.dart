@@ -1,3 +1,4 @@
+import 'package:metidation_app/core/constants/app_strings.dart';
 import 'package:metidation_app/data/repositories/auth/auth_repository_impl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -34,11 +35,12 @@ class LoginViewModel extends _$LoginViewModel {
       await SessionManager.saveSession(
         token: result!.uid,
         email: email,
+        uid: result.uid,
       );
       state = state.copyWith(
         isLoading: false,
         isSuccess: true,
-        successMessage: result.uid,
+        successMessage: AppStrings.msgSuccessLogin,
         notificationId: state.notificationId + 1,
       );
     } catch (e) {
@@ -67,6 +69,7 @@ class LoginViewModel extends _$LoginViewModel {
       await SessionManager.saveSession(
         token: result?.uid ?? "",
         email: result?.email ?? "-",
+        uid: result?.uid ?? "",
       );
       state = state.copyWith(
         isLoading: false,

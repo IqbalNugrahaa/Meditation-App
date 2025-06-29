@@ -14,8 +14,13 @@ class SplashPage extends HookWidget {
     useEffect(() {
       Future.delayed(const Duration(seconds: 3), () async {
         final hasSession = await SessionManager.hasSession();
+        final hasTopic = await SessionManager.hasTopic();
         if (hasSession) {
-          context.go('/welcome');
+          if (hasTopic) {
+            context.go('/home');
+          } else {
+            context.go('/welcome');
+          }
         } else {
           context.go('/auth');
         }

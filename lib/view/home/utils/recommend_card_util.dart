@@ -8,6 +8,8 @@ Color getColorRecommendCard(String value) {
       return AppColors.cardFocus;
     case "happiness":
       return AppColors.cardHappiness;
+    case "performance":
+      return AppColors.cardPerformance;
     default:
       return AppColors.cardFocus;
   }

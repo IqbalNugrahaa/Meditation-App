@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:metidation_app/core/components/app_text.dart';
 import 'package:metidation_app/core/constants/app_colors.dart';
 import 'package:metidation_app/core/constants/image_assets.dart';
+import 'package:metidation_app/data/model/request/account/topic_request.dart';
 import 'package:metidation_app/data/source/topic_static_data.dart';
 import 'package:metidation_app/view/topic/utils/topic_card_util.dart';
 import 'package:metidation_app/view/topic/widgets/topic_card.dart';
@@ -18,8 +20,20 @@ class TopicPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedIndex = ref.watch(topicViewModelProvider);
-    final selectionVM = ref.read(topicViewModelProvider.notifier);
+    final selected = ref.watch(topicViewModelProvider);
+    final topicViewModel = ref.read(topicViewModelProvider.notifier);
+
+    ref.listen(topicViewModelProvider.select((s) => s.notificationId),
+        (prev, next) {
+      final state = ref.read(topicViewModelProvider);
+
+      if (state.errorMessage != null) {
+        Fluttertoast.showToast(msg: state.errorMessage ?? "");
+      } else {
+        Fluttertoast.showToast(msg: state.successMessage ?? "");
+        context.push('/reminder');
+      }
+    });
 
     return SafeArea(
       child: Scaffold(
@@ -75,9 +89,12 @@ class TopicPage extends HookConsumerWidget {
                         height: getCardHeight(i),
                         color: getColorCard(data.topicType),
                         imageAsset: data.image,
-                        isSelected: selectedIndex == i,
+                        isSelected: selected.topicId == data.id,
                         onTap: () {
-                          selectionVM.select(i);
+                          topicViewModel.select(
+                            topicId: data.id,
+                            topicName: data.title,
+                          );
                         },
                       );
                     },
@@ -101,11 +118,16 @@ class TopicPage extends HookConsumerWidget {
                     child: FadeTransition(opacity: animation, child: child),
                   );
                 },
-                child: selectedIndex != null
+                child: selected.topicId != null
                     ? AppButton.contained(
                         text: AppStrings.next,
                         onPressed: () {
-                          context.push('/reminder');
+                          topicViewModel.updateTopic(
+                            TopicRequestModel(
+                              id: selected.topicId ?? "",
+                              name: selected.topicName ?? "",
+                            ),
+                          );
                         },
                         backgroundColor: AppColors.buttonColorPurple,
                         borderRadius: 32,

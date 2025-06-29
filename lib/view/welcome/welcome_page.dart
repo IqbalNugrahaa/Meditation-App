@@ -111,7 +111,7 @@ class WelcomePage extends HookConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             AppText(
-                              text: 'Hi ${data?.firstName}, Welcome',
+                              text: 'Hi ${data?.name}, Welcome',
                               fontSize: 30,
                               fontWeight: FontWeight.w700,
                               color: AppColors.textColorWhite,

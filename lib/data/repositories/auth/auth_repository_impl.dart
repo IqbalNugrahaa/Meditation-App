@@ -7,6 +7,12 @@ import '../../../services/auth/auth_services.dart';
 
 part 'auth_repository_impl.g.dart';
 
+@riverpod
+AuthRepository authRepository(Ref ref) {
+  final authServices = ref.watch(authServicesProvider);
+  return AuthRepositoryImpl(authServices);
+}
+
 class AuthRepositoryImpl implements AuthRepository {
   final AuthServices _authServices;
 
@@ -34,10 +40,4 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<User?> authWithGoogle() => _authServices.authWithGoogle();
-}
-
-@riverpod
-AuthRepository authRepository(Ref ref) {
-  final authServices = ref.watch(authServicesProvider);
-  return AuthRepositoryImpl(authServices);
 }

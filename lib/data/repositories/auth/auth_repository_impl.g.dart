@@ -6,7 +6,7 @@ part of 'auth_repository_impl.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authRepositoryHash() => r'4c25b9f514aefef3ac199c91f98b7cecb182b548';
+String _$authRepositoryHash() => r'a2127f0992cb900ff54d7d6296cb9b943f27b327';
 
 /// See also [authRepository].
 @ProviderFor(authRepository)

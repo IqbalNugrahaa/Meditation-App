@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,11 +24,28 @@ class AuthServices {
         email: email,
         password: password,
       );
-      log("response: ${credential.user}");
 
-      return credential.user;
+      final user = credential.user;
+      if (user == null) {
+        throw AuthFailure(message: 'User creation failed.');
+      }
+
+      await FirebaseFirestore.instance
+          .collection('accounts')
+          .doc(user.uid)
+          .set({
+        'uid': user.uid,
+        'email': user.email,
+        'name': user.displayName,
+        'filename': user.photoURL,
+        'topic': null,
+        'meditations': [],
+        'created_at': Timestamp.now(),
+        'updated_at': Timestamp.now(),
+      });
+
+      return user;
     } on FirebaseAuthException catch (e) {
-      log("response: ${e.code}");
       throw AuthFailure(message: _mapFirebaseError(e.code));
     } catch (e) {
       throw AuthFailure(message: 'Unexpected error occurred.');

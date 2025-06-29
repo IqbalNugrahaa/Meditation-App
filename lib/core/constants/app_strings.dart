@@ -14,6 +14,7 @@ class AppStrings {
   static const String buttonFacebook = "CONTINUE WITH FACEBOOK";
   static const String buttonGoogle = "CONTINUE WITH GOOGLE";
   static const String loginEmail = "OR LOG IN WITH EMAIL";
+  static const String hintFullname = "Input Your Name";
   static const String hintEmail = "Input Email";
   static const String hintPassword = "Input Password";
   static const String agreement = "i have read the";
@@ -62,8 +63,12 @@ class AppStrings {
   static const String goodMorning = "Good Morning";
 
   // Message
+  static const String msgEmptyFullname = "Fullname can't be empty";
   static const String msgEmptyEmail = "Email can't be empty";
   static const String msgEmptyPassword = "Password can't be empty";
   static const String msgLengthPassword = "Minimum 6 characters";
   static const String msgAggreeTerms = "Please agree to the Terms & Conditions";
+  static const String msgSuccessLogin = "Login Success";
+  static const String msgSuccessRegister = "Register Success";
+  static const String msgSuccessLogout = "Logout Success";
 }

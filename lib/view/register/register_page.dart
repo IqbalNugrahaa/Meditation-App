@@ -20,6 +20,7 @@ class RegisterPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final fullnameController = useTextEditingController();
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final formKey = useMemoized(() => GlobalKey<FormState>());
@@ -120,6 +121,20 @@ class RegisterPage extends HookConsumerWidget {
                         ),
                       ),
                       SizedBox(height: 40),
+                      AppTextField(
+                        hint: AppStrings.hintFullname,
+                        controller: fullnameController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return AppStrings.msgEmptyFullname;
+                          }
+
+                          return null;
+                        },
+                        errorText: registerState.errorTextField,
+                      ),
+                      SizedBox(height: 20),
                       AppTextField(
                         hint: AppStrings.hintEmail,
                         controller: emailController,
