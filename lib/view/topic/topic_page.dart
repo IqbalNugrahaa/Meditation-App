@@ -27,11 +27,11 @@ class TopicPage extends HookConsumerWidget {
         (prev, next) {
       final state = ref.read(topicViewModelProvider);
 
-      if (state.errorMessage != null) {
-        Fluttertoast.showToast(msg: state.errorMessage ?? "");
-      } else {
+      if (state.successMessage != null) {
         Fluttertoast.showToast(msg: state.successMessage ?? "");
         context.push('/reminder');
+      } else {
+        Fluttertoast.showToast(msg: state.errorMessage ?? "");
       }
     });
 
@@ -99,7 +99,9 @@ class TopicPage extends HookConsumerWidget {
                       );
                     },
                   ),
-                  const SliverToBoxAdapter(child: SizedBox(height: 60)),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(height: 60),
+                  ),
                 ],
               ),
             ),

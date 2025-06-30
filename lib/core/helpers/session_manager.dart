@@ -6,6 +6,7 @@ class SessionManager {
   static const String _email = 'user_email';
   static const String _uid = 'user_uid';
   static const String _topic = 'user_topic';
+  static const String _sleep = 'user_sleep';
 
   // Save token & email
   static Future<void> saveSession({
@@ -23,6 +24,11 @@ class SessionManager {
   static Future<void> saveTopic(TopicRequestModel model) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_topic, model.toJson());
+  }
+
+  static Future<void> saveSleep(bool sleep) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_sleep, sleep);
   }
 
   // Get Token
@@ -55,6 +61,13 @@ class SessionManager {
     final prefs = await SharedPreferences.getInstance();
     final topic = prefs.getString(_topic);
     return topic != null && topic.isNotEmpty;
+  }
+
+  // Has Sleep
+  static Future<bool> hasSleep() async {
+    final prefs = await SharedPreferences.getInstance();
+    final sleep = prefs.getBool(_sleep);
+    return sleep != null && sleep;
   }
 
   // Clear Session

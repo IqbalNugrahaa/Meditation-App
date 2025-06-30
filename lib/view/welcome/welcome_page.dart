@@ -65,80 +65,73 @@ class WelcomePage extends HookConsumerWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 75),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 48),
-                  child: Builder(
-                    builder: (_) {
-                      if (state.isLoading) {
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 24,
-                              ),
-                              child: ShimmerPlaceholder(
-                                height: 41.5,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 24,
-                              ),
-                              child: ShimmerPlaceholder(
-                                height: 41.5,
-                              ),
-                            ),
-                            SizedBox(height: 15),
-                            ShimmerPlaceholder(
-                              height: 48,
-                            ),
-                          ],
-                        );
-                      } else if (state.errorMessage != null) {
-                        return AppText(
-                          text: state.errorMessage!,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          textAlign: TextAlign.center,
-                        );
-                      } else if (state.response != null) {
-                        var data = state.response;
+                SizedBox(height: 50),
+                Builder(
+                  builder: (_) {
+                    if (state.isLoading) {
+                      return Column(
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24),
+                            child: ShimmerPlaceholder(height: 41.5),
+                          ),
+                          SizedBox(height: 8),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24),
+                            child: ShimmerPlaceholder(height: 41.5),
+                          ),
+                          SizedBox(height: 15),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 48),
+                            child: ShimmerPlaceholder(height: 48),
+                          ),
+                        ],
+                      );
+                    } else if (state.errorMessage != null) {
+                      return AppText(
+                        text: state.errorMessage!,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        textAlign: TextAlign.center,
+                      );
+                    } else if (state.response != null) {
+                      var data = state.response;
 
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            AppText(
-                              text: 'Hi ${data?.name}, Welcome',
-                              fontSize: 30,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.textColorWhite,
-                              textAlign: TextAlign.center,
-                            ),
-                            AppText(
-                              text: AppStrings.toSilentMoon,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.textColorWhite,
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 15),
-                            AppText(
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AppText(
+                            text: 'Hi ${data?.name}, Welcome',
+                            fontSize: 30,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.textColorWhite,
+                            textAlign: TextAlign.center,
+                          ),
+                          AppText(
+                            text: AppStrings.toSilentMoon,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.textColorWhite,
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 15),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 48),
+                            child: AppText(
                               text: AppStrings.welcomeHeader,
                               fontSize: 16,
                               fontWeight: FontWeight.w300,
                               color: AppColors.textColorWhite,
                               textAlign: TextAlign.center,
                             ),
-                          ],
-                        );
-                      } else {
-                        return SizedBox();
-                      }
-                    },
-                  ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return SizedBox();
+                    }
+                  },
                 ),
               ],
             ),

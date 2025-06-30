@@ -5,12 +5,14 @@ class AppColors {
   static const Color greyColor = Color(0xFFE5E5E5);
   static const Color baseColor = Color(0xFFE0E0E0);
   static const Color highlightColor = Color(0xFFF5F5F5);
+  static const Color blueColor = Color(0xFF03174C);
 
   // BUTTON
   static const Color buttonColorPurple = Color(0xFF8E97FD);
   static const Color buttonColorFacebook = Color(0xFF7583CA);
   static const Color buttonColorGrey = Color(0xFFEBEAEC);
   static const Color buttonColorBlack = Color(0xFF3F414E);
+  static const Color buttonAppbarDetail = Color(0xFF03174C);
 
   // TEXT
   static const Color textColorBlack = Color(0xFF3F414E);
@@ -22,6 +24,8 @@ class AppColors {
   static const Color textColorPurple = Color(0xFF8E97FD);
   static const Color textColorPrivacyPolicy = Color(0xFFB2BAE1);
   static const Color textCard = Color(0xFFFEF9F3);
+  static const Color textColorPink = Color(0xFFFF84A2);
+  static const Color textColorBlue = Color(0xFF7FD2F2);
 
   // BORDER
   static const Color borderColorBrokenWhite = Color(0xFFEBEAEC);
@@ -34,6 +38,9 @@ class AppColors {
 
   // TEXT FIELD
   static const Color fillColorTextField = Color(0xFFF2F3F7);
+
+  // NAVIGATION
+  static const Color navigationSleep = Color(0xFF03174C);
 
   // Card
   static const Color cardStress = Color(0xFF8E97FD);

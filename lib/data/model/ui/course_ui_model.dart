@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 class CourseUiModel {
   final String id;
   final String title;
+  final String description;
+  final double favorite;
+  final double listener;
   final String course;
   final String type;
   final String time;
@@ -15,6 +18,9 @@ class CourseUiModel {
     required this.type,
     required this.time,
     required this.imageUrl,
+    required this.description,
+    required this.favorite,
+    required this.listener,
   });
 }
 

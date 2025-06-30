@@ -6,7 +6,7 @@ part of 'topic_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$topicViewModelHash() => r'17d73ec187ef90723a12fa10a9550a3f27237359';
+String _$topicViewModelHash() => r'3acb42999638d6a1d2d4ae0e8d115b095742a060';
 
 /// See also [TopicViewModel].
 @ProviderFor(TopicViewModel)

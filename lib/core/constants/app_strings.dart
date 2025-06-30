@@ -49,6 +49,16 @@ class AppStrings {
   static const String homeMeditation = "Meditation";
   static const String homeRecommendation = "Recomended for you";
 
+  // Welcome Sleep
+  static const String welcomeSleep = "Wecome to Sleep";
+  static const String welcomeSleepHeader =
+      "Explore the new king of sleep. It uses sound and vesualization to create perfect conditions for refreshing sleep.";
+
+  // Sleep
+  static const String sleepStories = "Sleep Stories";
+  static const String sleepHeader =
+      "Soothing bedtime stories to help you fall into a deep and natural sleep";
+
   // Action
   static const String signUp = "Sign Up";
   static const String login = "Log In";

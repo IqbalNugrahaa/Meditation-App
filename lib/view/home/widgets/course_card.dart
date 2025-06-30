@@ -12,6 +12,7 @@ class CourseCard extends StatelessWidget {
   final Color buttonColor;
   final Color buttonTextColor;
   final Color timeTextColor;
+  final VoidCallback onTap;
   const CourseCard({
     super.key,
     required this.imagePath,
@@ -23,6 +24,7 @@ class CourseCard extends StatelessWidget {
     required this.buttonColor,
     required this.buttonTextColor,
     required this.timeTextColor,
+    required this.onTap,
   });
 
   @override
@@ -77,7 +79,7 @@ class CourseCard extends StatelessWidget {
                       width: 70,
                       height: 35,
                       text: "START",
-                      onPressed: () {},
+                      onPressed: onTap,
                       backgroundColor: buttonColor,
                       textColor: buttonTextColor,
                       fontSize: 12,

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:metidation_app/core/constants/image_assets.dart';
 import 'package:metidation_app/core/utils/media_query_util.dart';
@@ -153,6 +154,9 @@ class HomePage extends HookConsumerWidget {
                                 getColorCourseCard(data.type).buttonTextColor,
                             timeTextColor:
                                 getColorCourseCard(data.type).timeTextColor,
+                            onTap: () {
+                              context.pushNamed('detail', extra: data);
+                            },
                           );
                         },
                       ),

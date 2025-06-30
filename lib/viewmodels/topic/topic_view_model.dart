@@ -44,12 +44,14 @@ class TopicViewModel extends _$TopicViewModel {
       state = state.copyWith(
         isLoading: false,
         successMessage: result,
+        errorMessage: null,
         notificationId: state.notificationId + 1,
       );
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
         errorMessage: e.toString(),
+        successMessage: null,
         notificationId: state.notificationId + 1,
       );
     }
@@ -86,8 +88,8 @@ class TopicState {
       topicName: topicName ?? this.topicName,
       isLoading: isLoading ?? this.isLoading,
       notificationId: notificationId ?? this.notificationId,
-      successMessage: successMessage,
-      errorMessage: errorMessage,
+      successMessage: successMessage ?? this.successMessage,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }

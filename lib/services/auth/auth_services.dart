@@ -71,17 +71,46 @@ class AuthServices {
   }
 
   Future<User?> authWithGoogle() async {
-    final googleUser = await _google.signIn();
-    if (googleUser == null) return null;
+    try {
+      // Step 1: Google Sign-In
+      final googleUser = await _google.signIn();
+      if (googleUser == null) return null;
 
-    final googleAuth = await googleUser.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+      // Step 2: Ambil auth credential
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    final userCredential = await _auth.signInWithCredential(credential);
-    return userCredential.user;
+      // Step 3: Login ke Firebase dengan credential Google
+      final userCredential = await _auth.signInWithCredential(credential);
+      final user = userCredential.user;
+      if (user == null) return null;
+
+      // Step 4: Cek apakah akun sudah ada di Firestore
+      final docRef =
+          FirebaseFirestore.instance.collection('accounts').doc(user.uid);
+      final docSnapshot = await docRef.get();
+
+      if (!docSnapshot.exists) {
+        // Step 5: Simpan akun baru ke Firestore
+        await docRef.set({
+          'uid': user.uid,
+          'email': user.email,
+          'name': user.displayName,
+          'filename': user.photoURL,
+          'topic': null,
+          'meditations': [],
+          'created_at': Timestamp.now(),
+          'updated_at': Timestamp.now(),
+        });
+      }
+
+      return user;
+    } catch (e) {
+      throw AuthFailure(message: 'Unexpected error occurred.');
+    }
   }
 
   Future<void> signOut() async {
