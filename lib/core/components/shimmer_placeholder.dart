@@ -5,13 +5,13 @@ import 'package:shimmer/shimmer.dart';
 class ShimmerPlaceholder extends StatelessWidget {
   final double width;
   final double height;
-  final BorderRadiusGeometry borderRadius;
+  final double borderRadius;
 
   const ShimmerPlaceholder({
     super.key,
     this.width = double.infinity,
     required this.height,
-    this.borderRadius = const BorderRadius.all(Radius.circular(8)),
+    this.borderRadius = 8,
   });
 
   @override
@@ -24,7 +24,7 @@ class ShimmerPlaceholder extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           color: Colors.grey.shade300,
-          borderRadius: borderRadius,
+          borderRadius: BorderRadius.circular(borderRadius),
         ),
       ),
     );

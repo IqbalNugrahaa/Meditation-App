@@ -13,6 +13,7 @@ class AppColors {
   static const Color buttonColorGrey = Color(0xFFEBEAEC);
   static const Color buttonColorBlack = Color(0xFF3F414E);
   static const Color buttonAppbarDetail = Color(0xFF03174C);
+  static const Color buttonInactiveSleep = Color(0xFF586894);
 
   // TEXT
   static const Color textColorBlack = Color(0xFF3F414E);
@@ -26,6 +27,7 @@ class AppColors {
   static const Color textCard = Color(0xFFFEF9F3);
   static const Color textColorPink = Color(0xFFFF84A2);
   static const Color textColorBlue = Color(0xFF7FD2F2);
+  static const Color textInactiveSleep = Color(0xFF98A1BD);
 
   // BORDER
   static const Color borderColorBrokenWhite = Color(0xFFEBEAEC);
