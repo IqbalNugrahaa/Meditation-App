@@ -1,10 +1,14 @@
 import 'package:go_router/go_router.dart';
+import 'package:metidation_app/data/model/response/sleep/sleep_response.dart';
 import 'package:metidation_app/data/model/ui/course_ui_model.dart';
 import 'package:metidation_app/view/auth/auth_page.dart';
 import 'package:metidation_app/view/home/pages/course_detail_page.dart';
 import 'package:metidation_app/view/login/login_page.dart';
+import 'package:metidation_app/view/meditate/meditate_page.dart';
 import 'package:metidation_app/view/register/register_page.dart';
 import 'package:metidation_app/view/reminder/reminder_page.dart';
+import 'package:metidation_app/view/sleep/pages/recommend_detail_page.dart';
+import 'package:metidation_app/view/sleep/pages/sleep_music_player_page.dart';
 import 'package:metidation_app/view/sleep/sleep_page.dart';
 import 'package:metidation_app/view/splash/splash_page.dart';
 import 'package:metidation_app/view/topic/topic_page.dart';
@@ -56,8 +60,8 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const ReminderPage(),
     ),
     GoRoute(
-      path: '/detail',
-      name: 'detail',
+      path: '/detail-course',
+      name: 'detail-course',
       builder: (context, state) {
         final data = state.extra as CourseUiModel;
         return CourseDetailPage(data: data);
@@ -67,6 +71,22 @@ final GoRouter router = GoRouter(
       path: '/welcome-sleep',
       name: 'welcome-sleep',
       builder: (context, state) => const WelcomeSleep(),
+    ),
+    GoRoute(
+      path: '/detail-recommend',
+      name: 'detail-recommend',
+      builder: (context, state) {
+        final data = state.extra as Item;
+        return RecommendDetailPage(data: data);
+      },
+    ),
+    GoRoute(
+      path: '/music-player-sleep',
+      name: 'music-player-sleep',
+      builder: (context, state) {
+        final data = state.extra as Item;
+        return SleepMusicPlayerPage(data: data);
+      },
     ),
 
     // ShellRoute untuk BottomNavigationPage
@@ -82,6 +102,11 @@ final GoRouter router = GoRouter(
           path: '/sleep',
           name: 'sleep',
           builder: (context, state) => const SleepPage(),
+        ),
+        GoRoute(
+          path: '/meditate',
+          name: 'meditate',
+          builder: (context, state) => const MeditatePage(),
         ),
       ],
     ),

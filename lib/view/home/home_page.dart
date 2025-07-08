@@ -153,7 +153,7 @@ class HomePage extends HookConsumerWidget {
                             timeTextColor:
                                 getColorCourseCard(data.type).timeTextColor,
                             onTap: () {
-                              context.pushNamed('detail', extra: data);
+                              context.pushNamed('detail-course', extra: data);
                             },
                           );
                         },

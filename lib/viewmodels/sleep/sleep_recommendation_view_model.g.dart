@@ -7,7 +7,7 @@ part of 'sleep_recommendation_view_model.dart';
 // **************************************************************************
 
 String _$sleepRecommendationViewModelHash() =>
-    r'029700c91e86d5ca9d62216b2845c6d152caba10';
+    r'3b8b11648e80720562bc91199ade49e540c0b54f';
 
 /// See also [SleepRecommendationViewModel].
 @ProviderFor(SleepRecommendationViewModel)

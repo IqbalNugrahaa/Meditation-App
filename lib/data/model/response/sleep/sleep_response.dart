@@ -39,6 +39,10 @@ class Item {
   final String? name;
   final String? time;
   final String? type;
+  final String? description;
+  final String? url;
+  final int? favorite;
+  final int? listener;
 
   Item({
     this.id,
@@ -46,6 +50,10 @@ class Item {
     this.name,
     this.time,
     this.type,
+    this.description,
+    this.url,
+    this.favorite,
+    this.listener,
   });
 
   factory Item.fromJson(String str) => Item.fromMap(json.decode(str));
@@ -58,6 +66,10 @@ class Item {
         name: json["name"],
         time: json["time"],
         type: json["type"],
+        description: json["description"],
+        url: json["url"],
+        favorite: json["favorite"],
+        listener: json["listener"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -66,10 +78,14 @@ class Item {
         "name": name,
         "time": time,
         "type": type,
+        "description": description,
+        "url": url,
+        "favorite": favorite,
+        "listener": listener,
       };
 
   @override
   String toString() {
-    return 'Item(id: $id, name: $name, type: $type, time: $time)';
+    return 'Item(id: $id, name: $name, type: $type, time: $time, description: $description, favorite: $favorite, listener: $listener)';
   }
 }

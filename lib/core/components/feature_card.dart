@@ -3,12 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:metidation_app/core/components/app_text.dart';
 import 'package:metidation_app/core/constants/app_colors.dart';
 
-class SleepCard extends StatelessWidget {
+class FeatureCard extends StatelessWidget {
   final String title;
   final String icon;
   final bool isSelected;
   final VoidCallback onTap;
-  const SleepCard({
+  const FeatureCard({
     super.key,
     required this.title,
     required this.icon,

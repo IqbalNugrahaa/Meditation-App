@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:metidation_app/core/components/app_button.dart';
 import 'package:metidation_app/core/components/app_text.dart';
@@ -7,11 +8,10 @@ import 'package:metidation_app/core/constants/app_colors.dart';
 import 'package:metidation_app/core/constants/app_strings.dart';
 import 'package:metidation_app/core/constants/image_assets.dart';
 import 'package:metidation_app/core/utils/media_query_util.dart';
-import 'package:metidation_app/view/sleep/widgets/sleep_card.dart';
+import 'package:metidation_app/core/components/feature_card.dart';
 import 'package:metidation_app/view/sleep/widgets/sleep_recommend_card.dart';
 import 'package:metidation_app/viewmodels/sleep/sleep_recommendation_view_model.dart';
 
-import '../home/widgets/recommend_card.dart';
 import '../../data/source/sleep_static_data.dart';
 import '../../viewmodels/sleep/sleep_view_model.dart';
 
@@ -74,7 +74,7 @@ class SleepPage extends HookConsumerWidget {
                     itemBuilder: (context, i) {
                       var data = staticSleepList[i];
 
-                      return SleepCard(
+                      return FeatureCard(
                         title: data.title,
                         icon: data.icon,
                         isSelected: isSelected == i,
@@ -86,114 +86,132 @@ class SleepPage extends HookConsumerWidget {
                   ),
                 ),
                 SizedBox(height: 30),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: Container(
-                    width: ScreenSize.width(context),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          ImageAssets.oceanSleep,
-                        ),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: 68.23,
-                        bottom: 20.03,
-                        right: 59,
-                        left: 59,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          AppText(
-                            text: AppStrings.oceanMoon,
-                            fontSize: 34,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.textLightYellow,
-                          ),
-                          SizedBox(height: 5.01),
-                          AppText(
-                            text: AppStrings.descOcean,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
-                            color: AppColors.textColorWhite,
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: 21.53),
-                          AppButton.contained(
-                            height: 35.06,
-                            width: 70.2,
-                            backgroundColor: Colors.white,
-                            textColor: AppColors.textColorBlack,
-                            borderRadius: 25,
-                            text: AppStrings.start,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20.2),
                 Expanded(
-                  child: Builder(
-                    builder: (_) {
-                      if (sleepState.isLoading) {
-                        return GridView.builder(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 1,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: ScreenSize.width(context),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                ImageAssets.oceanSleep,
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          itemCount: 4,
-                          itemBuilder: (context, i) => ShimmerPlaceholder(
-                            height: 174.37,
-                            width: 177,
-                            borderRadius: 25,
+                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          padding: EdgeInsets.only(
+                            top: 68.23,
+                            bottom: 20.03,
+                            left: 20,
+                            right: 20,
                           ),
-                        );
-                      } else if (sleepState.response != null) {
-                        return GridView.builder(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 1,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              AppText(
+                                text: AppStrings.oceanMoon,
+                                fontSize: 28,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.textLightYellow,
+                              ),
+                              SizedBox(height: 5.01),
+                              AppText(
+                                text: AppStrings.descOcean,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                                color: AppColors.textColorWhite,
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(height: 21.53),
+                              AppButton.contained(
+                                height: 35.06,
+                                width: 70.2,
+                                backgroundColor: Colors.white,
+                                textColor: AppColors.textColorBlack,
+                                borderRadius: 25,
+                                text: AppStrings.start,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                onPressed: () {},
+                              ),
+                            ],
                           ),
-                          itemCount: 4,
-                          itemBuilder: (context, i) {
-                            final data = sleepState.response?.items?[i];
+                        ),
+                        SizedBox(height: 20.2),
+                        Builder(
+                          builder: (_) {
+                            if (sleepState.isLoading) {
+                              return GridView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 1,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 20,
+                                ),
+                                itemCount: 4,
+                                itemBuilder: (context, i) => ShimmerPlaceholder(
+                                  height: 174.37,
+                                  width: 177,
+                                  borderRadius: 25,
+                                ),
+                              );
+                            } else if (sleepState.response != null) {
+                              return GridView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 1,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 20,
+                                ),
+                                itemCount:
+                                    sleepState.response?.items?.length ?? 0,
+                                itemBuilder: (context, i) {
+                                  final data = sleepState.response?.items?[i];
 
-                            return SleepRecommendCard(
-                              imagePath: data?.filename ?? "",
-                              title: data?.name ?? "",
-                              time: data?.time ?? "",
-                              type: data?.type ?? "",
-                            );
+                                  return GestureDetector(
+                                    onTap: () {
+                                      context.pushNamed(
+                                        'detail-recommend',
+                                        extra: data,
+                                      );
+                                    },
+                                    child: SleepRecommendCard(
+                                      imagePath: data?.filename ?? "",
+                                      title: data?.name ?? "",
+                                      time: data?.time ?? "",
+                                      type: data?.type ?? "",
+                                    ),
+                                  );
+                                },
+                              );
+                            } else if (sleepState.errorMessage != null) {
+                              return Center(
+                                child: AppText(
+                                  text: sleepState.errorMessage ?? "-",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.textColorWhite,
+                                ),
+                              );
+                            } else {
+                              return SizedBox();
+                            }
                           },
-                        );
-                      } else if (sleepState.errorMessage != null) {
-                        return Center(
-                          child: AppText(
-                            text: sleepState.errorMessage ?? "-",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.textColorWhite,
-                          ),
-                        );
-                      } else {
-                        return SizedBox();
-                      }
-                    },
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    ),
                   ),
                 ),
               ],

@@ -61,6 +61,11 @@ class AppStrings {
   static const String oceanMoon = "The Ocean Moon";
   static const String descOcean =
       "Non-stop 8- hour mixes of our most popular sleep audio";
+  static const String related = "Related";
+
+  // Meditate
+  static const String meditateHeader =
+      "we can learn how to recognize when our minds are doing their normal everyday acrobatics.";
 
   // Action
   static const String signUp = "Sign Up";
@@ -75,6 +80,7 @@ class AppStrings {
   static const String noThanks = "NO THANKS";
   static const String goodMorning = "Good Morning";
   static const String start = "Start";
+  static const String play = "Play";
 
   // Message
   static const String msgEmptyFullname = "Fullname can't be empty";
